@@ -1,4 +1,4 @@
-FROM: ubuntu/ubuntu:12.04
+FROM ubuntu:precise-20161102
 LABEL maintainer=abedzilla@gmail.com
 
 MAINTAINER abedzilla@gmail.com
@@ -17,4 +17,4 @@ RUN apt-get update \
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod a+x /sbin/entrypoint.sh
-ENTRYPOINT["/sbin/entrypoint.sh"]
+ENTRYPOINT ["/sbin/entrypoint.sh"]
