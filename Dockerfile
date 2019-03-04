@@ -35,4 +35,4 @@ RUN sh /_init/init.sh
 EXPOSE 25 80 110 143 4190
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
-CMD ["mailserver"]
+CMD ["tail -f /var/log/apache2/*.log"]
