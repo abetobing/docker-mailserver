@@ -1,5 +1,5 @@
 create database if not exists servermail;
-GRANT ALL PRIVILEGES ON servermail.* TO 'mailuser'@'%' IDENTIFIED BY 'secret';
+GRANT ALL PRIVILEGES ON servermail.* TO 'mailuser'@'%' IDENTIFIED BY 'mailuserpasswd';
 FLUSH PRIVILEGES;
 
 
