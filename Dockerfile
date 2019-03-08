@@ -20,7 +20,23 @@ RUN apt-get update \
        php7.0-cgi php7.0-mcrypt php-memcache php7.0-json php7.0-mysql php-gettext \
        php7.0-zip libapache2-mod-php7.0 php7.0-mbstring php7.0-curl libcurl3 libcurl3-dev
 
-## Vimbadmin
+## Genreate Self signed certificate
+RUN openssl req -newkey rsa:4096 -nodes -sha512 -x509 -days 3650 -nodes -out /etc/ssl/certs/postfix.pem -keyout /etc/ssl/private/postfix.key \
+     -subj "/C=ID/ST=Jakarta/L=Jakarta/O=Sedigit Inc/OU=Tech Division/CN=abetobing.com"
+## Put key and cert into single file
+RUN cat /etc/ssl/*/postfix.* > /etc/postfix/postfix.pem \
+    && chmod 640 /etc/postfix/postfix.pem \
+    && chown postfix:postfix /etc/postfix/postfix.pem
+
+
+## OPTIONAL: certbot
+#RUN apt-get update && apt-get install -y software-properties-common
+#RUN add-apt-repository -y universe
+#RUN add-apt-repository -y ppa:certbot/certbot
+#RUN apt-get install -y certbot
+
+#RUN certbot certonly --webroot -w /var/www/abetobingcom -d abetobing.com -d www.abetobing.com \
+#    -w /var/www/html -d mail.abetobing.com
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 COPY init.sh /_init/init.sh
