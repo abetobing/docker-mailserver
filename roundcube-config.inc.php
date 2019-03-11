@@ -8,7 +8,7 @@ $config['smtp_pass'] = '%p';
 
 #$config['default_host'] = 'tls://%n';
 #$config['default_host'] = 'tls://127.0.0.1';
-$config['default_host'] = 'abetobing.com:9143';
+$config['default_host'] = 'abetobing.com:143';
 
 $config['imap_conn_options'] = array(
         'ssl' => array(
