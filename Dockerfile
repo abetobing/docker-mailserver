@@ -38,6 +38,13 @@ RUN cat /etc/ssl/*/postfix.* > /etc/postfix/postfix.pem \
 #RUN certbot certonly --webroot -w /var/www/abetobingcom -d abetobing.com -d www.abetobing.com \
 #    -w /var/www/html -d mail.abetobing.com
 
+
+# Generate mail crypt key
+# Private key
+RUN openssl ecparam -name prime256v1 -genkey | openssl pkey -out /etc/dovecot/mailcrypt.key && chmod 0400 /etc/dovecot/mailcrypt.key
+# Public key
+RUN openssl pkey -in /etc/dovecot/mailcrypt.key -pubout -out /etc/dovecot/mailcrypt.pub
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 COPY init.sh /_init/init.sh
 RUN mkdir -p /_init/sql /_init/postfix /_init/dovecot/conf.d
