@@ -45,5 +45,5 @@ VALUES
 INSERT INTO `servermail`.`virtual_aliases`
 (`id`, `domain_id`, `source`, `destination`)
 VALUES
-('1', '1', 'hi@abetobing.com', 'postmaster@abetobing.com');
+('1', '1', 'mr@abetobing.com', 'hi@abetobing.com');
 
