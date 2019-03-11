@@ -704,18 +704,18 @@ virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
 virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 virtual_alias_maps = mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-virtual-email2email.cf
 
+#smtpd_tls_cert_file=/etc/letsencrypt/live/abetobing.com/fullchain.pem
+#smtpd_tls_key_file=/etc/letsencrypt/live/abetobing.com/privkey.pem
 smtpd_tls_cert_file=/etc/ssl/certs/postfix.pem
 smtpd_tls_key_file=/etc/ssl/private/postfix.key
 smtpd_use_tls=yes
 smtpd_tls_auth_only = yes
-smtpd_tls_protocols=!SSLv2,!SSLv3
-smtp_tls_protocols = !SSLv2,!SSLv3
 
 #Enabling SMTP for authenticated users.
 
-#smtpd_sasl_type = dovecot
-#smtpd_sasl_path = private/auth
-#smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
 
 smtpd_recipient_restrictions =
    permit_sasl_authenticated,
