@@ -15,8 +15,12 @@ RUN apt-get update \
     && debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'" \
     && apt-get install -y wget postfix postfix-mysql dovecot-core dovecot-imapd dovecot-pop3d dovecot-lmtpd dovecot-mysql mysql-client \
        mailutils rsyslog ufw vim net-tools \
-       php7.0-cgi php7.0-mcrypt php-memcache php7.0-json php7.0-mysql php-gettext \
-       php7.0-zip libapache2-mod-php7.0 php7.0-mbstring php7.0-curl libcurl3 libcurl3-dev
+       php7.2-cgi php-memcache php7.2-json php7.2-mysql php-gettext \
+       php7.2-zip libapache2-mod-php7.2 php7.2-mbstring php7.2-curl libcurl4 \
+    && apt install -y php-dev libmcrypt-dev php-pear \
+    && pecl channel-update pecl.php.net \
+    && pecl install mcrypt-1.0.1
+
 
 ## Genreate Self signed certificate
 RUN openssl req -newkey rsa:4096 -nodes -sha512 -x509 -days 3650 -nodes -out /etc/ssl/certs/postfix.pem -keyout /etc/ssl/private/postfix.key \
