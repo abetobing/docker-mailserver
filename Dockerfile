@@ -55,7 +55,7 @@ ADD roundcube-config.inc.php /_init/roundcube-config.inc.php
 RUN chmod a+x /sbin/entrypoint.sh /_init/init.sh
 RUN sh /_init/init.sh
 
-EXPOSE 25 80 110 143 465 587 4190
+EXPOSE 25 80 110 143 465 587 993 995
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 CMD ["tail -f /var/log/apache2/*.log"]
