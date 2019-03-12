@@ -1,7 +1,5 @@
-FROM ubuntu:xenial-20190122
+FROM ubuntu:bionic-20190307
 LABEL maintainer=abedzilla@gmail.com
-
-MAINTAINER abedzilla@gmail.com
 
 ENV MAIL_HOSTNAME=localhost \
     MAIL_ADMIN=admin@localhost \
