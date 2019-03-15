@@ -48,4 +48,11 @@ pwd
 ls -al /_init/
 cat /_init/roundcube-config.inc.php >> /var/www/html/roundcube/config/config.inc.php
 
+
+### OPENDKIM
+postconf -e "milter_protocol = 2" \
+        && postconf -e "milter_default_action = accept" \
+        && postconf -e "smtpd_milters = inet:localhost:12301" \
+        && postconf -e "non_smtpd_milters = inet:localhost:12301"
+
 ###service apache2 restart

@@ -47,6 +47,14 @@ RUN openssl ecparam -name prime256v1 -genkey | openssl pkey -out /etc/dovecot/ma
 # Public key
 RUN openssl pkey -in /etc/dovecot/mailcrypt.key -pubout -out /etc/dovecot/mailcrypt.pub
 
+
+### OPENDKIM
+RUN apt-get install -y opendkim opendkim-tools
+RUN mkdir -p /etc/opendkim/keys/abetobing.com
+RUN cd /etc/opendkim/keys/abetobing.com \
+    && opendkim-genkey -s /etc/opendkim/keys/abetobing.com/mail -d abetobing.com \
+    && chown opendkim:opendkim /etc/opendkim/keys/abetobing.com/mail.private
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 COPY init.sh /_init/init.sh
 RUN mkdir -p /_init/sql /_init/postfix /_init/dovecot/conf.d
@@ -55,11 +63,12 @@ ADD etc/postfix/*.cf /_init/postfix/
 ADD etc/dovecot/*.ext /_init/dovecot/
 ADD etc/dovecot/conf.d/* /_init/dovecot/conf.d/
 ADD roundcube-config.inc.php /_init/roundcube-config.inc.php
+ADD etc/opendkim.conf /_init/opendkim.conf
 
 RUN chmod a+x /sbin/entrypoint.sh /_init/init.sh
 RUN sh /_init/init.sh
 
-EXPOSE 25 80 110 143 465 587 993 995 4190
+EXPOSE 25 80 110 143 465 587 993 995 4190i 12301
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 CMD ["tail -f /var/log/apache2/*.log"]
